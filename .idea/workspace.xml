@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f7541ae2-4628-492b-b9fb-24ad9f6a19f1" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/quizzes.sqlite" />
+      <change beforePath="$PROJECT_DIR$/models/index.js" afterPath="$PROJECT_DIR$/models/index.js" />
       <change beforePath="$PROJECT_DIR$/models/quiz.js" afterPath="$PROJECT_DIR$/models/quiz.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -109,6 +110,11 @@
             <path>
               <item name="quiz_2018" type="b2602c69:ProjectViewProjectNode" />
               <item name="quiz_2018" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="models" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="quiz_2018" type="b2602c69:ProjectViewProjectNode" />
+              <item name="quiz_2018" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="public" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
           </expand>
@@ -151,12 +157,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1526925040693</updated>
-      <workItem from="1526925044137" duration="5343000" />
+      <workItem from="1526925044137" duration="5876000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5343000" />
+    <option name="totallyTimeSpent" value="5876000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
