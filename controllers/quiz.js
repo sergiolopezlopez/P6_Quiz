@@ -184,13 +184,17 @@ exports.update = (req, res, next) => {
 
 // DELETE /quizzes/:quizId
 exports.destroy = (req, res, next) => {
-
     req.quiz.destroy()
     .then(() => {
         req.flash('success', 'Quiz deleted successfully.');
+<<<<<<< HEAD
         res.redirect('/goback');
     })
     .catch(error => {
+=======
+        res.redirect('/quizzes');
+    }).catch(error => {
+>>>>>>> practica6
         req.flash('error', 'Error deleting the Quiz: ' + error.message);
         next(error);
     });
@@ -199,11 +203,8 @@ exports.destroy = (req, res, next) => {
 
 // GET /quizzes/:quizId/play
 exports.play = (req, res, next) => {
-
     const {quiz, query} = req;
-
     const answer = query.answer || '';
-
     res.render('quizzes/play', {
         quiz,
         answer
@@ -213,9 +214,7 @@ exports.play = (req, res, next) => {
 
 // GET /quizzes/:quizId/check
 exports.check = (req, res, next) => {
-
     const {quiz, query} = req;
-
     const answer = query.answer || "";
     const result = answer.toLowerCase().trim() === quiz.answer.toLowerCase().trim();
 
@@ -225,3 +224,54 @@ exports.check = (req, res, next) => {
         answer
     });
 };
+
+
+// GET /quizzes/randomplay
+exports.randomPlay = (req, res, next) => {
+    req.session.randomPlay = req.session.randomPlay || [];
+    const score = req.session.randomPlay.length;
+    models.quiz.count({where:{id: {[Sequelize.Op.notIn] : req.session.randomPlay}}})
+        .then(n => {
+            return models.quiz.findAll({
+                where: {id: {[Sequelize.Op.notIn] : req.session.randomPlay}},
+                offset: Math.floor(Math.random()*n),
+                limit: 1
+            }).then(quizzes => {
+                    return quizzes[0];
+                })
+        }).then(quiz => {
+            if(quiz === undefined) {
+                delete req.session.randomPlay;
+                res.render('quizzes/random_nomore', {
+                    score: score
+                });
+            } else {
+                res.render('quizzes/random_play', {
+                    quiz: quiz,
+                    score: score
+                });
+            }
+        }).catch(error => next(error))
+};
+
+// GET /quizzes/randomcheck/:quizId(\d+)z
+exports.randomCheck = (req, res, next) => {
+    const {quiz, query} = req;
+    const answer = query.answer || "";
+    const result = answer.toLowerCase().trim() === quiz.answer.toLowerCase().trim();
+    if (result) {
+        if(req.session.randomPlay.indexOf(req.quiz.id) === -1){
+            req.session.randomPlay.push(req.quiz.id);
+        }
+    } else {
+        req.session.randomPlay = [];
+    }
+    const score = req.session.randomPlay.length;
+    res.render('quizzes/random_result', {
+        answer:answer,
+        result:result,
+        score:score
+    });
+};
+
+
